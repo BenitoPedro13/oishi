@@ -4,6 +4,7 @@ import { Introducao } from "@/components/cena/introducao";
 import { DiscoTransicao } from "@/components/cena/disco-transicao";
 import { CapituloDesperdicio } from "@/components/cena/capitulo-desperdicio";
 import { RodiziosTeaser } from "@/components/cena/rodizios-teaser";
+import { BandaContato } from "@/components/cena/banda-contato";
 import { RodapeSimples } from "@/components/marca/rodape-simples";
 
 export default async function Home() {
@@ -16,6 +17,7 @@ export default async function Home() {
       <DiscoTransicao />
       <CapituloDesperdicio />
       <RodiziosTeaser />
+      <BandaContato />
       <RodapeSimples restaurante={restaurante} />
     </>
   );

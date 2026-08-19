@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import { buscarRestaurante } from "@/lib/conteudo/fonte";
-import { Selo } from "@/components/marca/selo";
 import { Ctas } from "@/components/cena/ctas";
+import { BandaContato } from "@/components/cena/banda-contato";
 import { construirMetadata } from "@/lib/seo";
-import { construirLinkWhatsapp } from "@/lib/contato/whatsapp";
 import { formatarTelefone } from "@/lib/formato";
 
 export const metadata: Metadata = construirMetadata({
@@ -51,27 +50,7 @@ export default async function ContatoPage() {
         <Ctas className="mt-8" />
       </section>
 
-      <section className="relative overflow-hidden bg-hinomaru px-4 py-24 sm:px-6">
-        <div className="pointer-events-none absolute -top-[10vw] -left-[8vw] opacity-15" aria-hidden="true">
-          <Selo escala="fantasma" cor="var(--sumi)" />
-        </div>
-        <div className="relative z-10 flex flex-wrap items-end justify-between gap-6">
-          <h2
-            style={{ fontSize: "var(--t-splash)", fontWeight: 800, color: "var(--washi)", letterSpacing: "-0.03em", lineHeight: 0.82 }}
-          >
-            CONTATO
-          </h2>
-          <a
-            href={construirLinkWhatsapp("Olá! Vim pelo site do Oishi.")}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="relative z-10 bg-washi px-6 py-3 text-hinomaru"
-            style={{ fontWeight: 800, fontSize: "0.9rem", letterSpacing: "0.03em" }}
-          >
-            Chamar no WhatsApp
-          </a>
-        </div>
-      </section>
+      <BandaContato />
     </>
   );
 }
