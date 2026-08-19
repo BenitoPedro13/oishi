@@ -1,0 +1,41 @@
+.morph-slider {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #090908;
+  isolation: isolate;
+}
+
+.morph-slider-fallbacks,
+.morph-slider-fallback,
+.morph-slider-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.morph-slider-fallbacks {
+  z-index: 0;
+}
+
+.morph-slider-fallback {
+  background-repeat: no-repeat;
+  background-size: cover;
+  transition: opacity 160ms linear;
+}
+
+.morph-slider-stage {
+  z-index: 1;
+  pointer-events: none;
+}
+
+.morph-slider-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morph-slider-fallback {
+    transition: none;
+  }
+}

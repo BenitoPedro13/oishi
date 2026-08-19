@@ -1,0 +1,411 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+/*
+  ---break---
+*/
+@custom-variant dark (&:is(.dark *));
+
+/*
+  Tokens sampled with ffmpeg from Oishi's own logo and reference capture —
+  never chosen from memory. spec-design.md §4.1. Dark only, no light mode.
+*/
+:root {
+  /* ground — warm ink, never pure black (spec-design.md §4.3) */
+  --sumi: #14100f;
+  --sumi-alto: #1f1917;
+  --sumi-linha: #2e2725;
+
+  /* the hinomaru — sampled from logo.jpg, top → bottom of the disc */
+  --hinomaru-escuro: #9a1114;
+  --hinomaru: #c6151b;
+  --hinomaru-claro: #e71b23;
+
+  /* light */
+  --washi: #f4f1ec;
+  --foco: #ffffff;
+  --cinza: #8c8480;
+  --cinza-claro: #a8a09b;
+
+  --radius: 0.625rem;
+
+  /* type scale — spec-design.md §6.2, fluid on a 1.333 ratio */
+  --t-splash: clamp(4rem, 17vw, 15rem);
+  --t-display: clamp(2.75rem, 8vw, 7rem);
+  --t-titulo: clamp(2rem, 4.5vw, 3.5rem);
+  --t-preco: clamp(2.5rem, 6vw, 5rem);
+  --t-corpo: clamp(1rem, 1.05vw, 1.125rem);
+  --t-rotulo: 0.6875rem;
+  --t-numero: clamp(3rem, 7vw, 6rem);
+
+  /* motion — spec-design.md §7.3 */
+  --ease-saida: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-suave: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-rapido: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-micro: 180ms;
+  --dur-ui: 340ms;
+  --dur-cena: 900ms;
+  --dur-pagina: 1200ms;
+
+  /* the disc — spec-design.md §3.2, the real vertical graduation */
+  --gradiente-hinomaru: linear-gradient(
+    180deg,
+    var(--hinomaru-escuro),
+    var(--hinomaru) 55%,
+    var(--hinomaru-claro)
+  );
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+}
+
+@theme inline {
+  --color-sumi: var(--sumi);
+  --color-sumi-alto: var(--sumi-alto);
+  --color-sumi-linha: var(--sumi-linha);
+  --color-hinomaru-escuro: var(--hinomaru-escuro);
+  --color-hinomaru: var(--hinomaru);
+  --color-hinomaru-claro: var(--hinomaru-claro);
+  --color-washi: var(--washi);
+  --color-foco: var(--foco);
+  --color-cinza: var(--cinza);
+  --color-cinza-claro: var(--cinza-claro);
+
+  --font-display: var(--font-archivo);
+  --font-jp: var(--font-shippori);
+
+  --radius-none: var(--radius);
+
+  --font-heading: var(--font-sans);
+
+  --font-sans: var(--font-sans);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-sidebar-border: var(--sidebar-border);
+
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+
+  --color-sidebar-accent: var(--sidebar-accent);
+
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+
+  --color-sidebar-primary: var(--sidebar-primary);
+
+  --color-sidebar-foreground: var(--sidebar-foreground);
+
+  --color-sidebar: var(--sidebar);
+
+  --color-chart-5: var(--chart-5);
+
+  --color-chart-4: var(--chart-4);
+
+  --color-chart-3: var(--chart-3);
+
+  --color-chart-2: var(--chart-2);
+
+  --color-chart-1: var(--chart-1);
+
+  --color-ring: var(--ring);
+
+  --color-input: var(--input);
+
+  --color-border: var(--border);
+
+  --color-destructive: var(--destructive);
+
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-accent: var(--accent);
+
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-muted: var(--muted);
+
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-secondary: var(--secondary);
+
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-primary: var(--primary);
+
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-popover: var(--popover);
+
+  --color-card-foreground: var(--card-foreground);
+
+  --color-card: var(--card);
+
+  --color-foreground: var(--foreground);
+
+  --color-background: var(--background);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+
+  --radius-md: calc(var(--radius) * 0.8);
+
+  --radius-lg: var(--radius);
+
+  --radius-xl: calc(var(--radius) * 1.4);
+
+  --radius-2xl: calc(var(--radius) * 1.8);
+
+  --radius-3xl: calc(var(--radius) * 2.2);
+
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    border-color: var(--sumi-linha);
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    background: var(--sumi);
+    scroll-behavior: auto;
+    @apply font-sans;
+  }
+
+  body {
+    background: var(--sumi);
+    color: var(--washi);
+    font-family: var(--font-archivo), Arial, Helvetica, sans-serif;
+    font-feature-settings: "tnum" 0;
+    -webkit-font-smoothing: antialiased;
+    @apply bg-background text-foreground;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--foco);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--hinomaru);
+    color: var(--washi);
+  }
+}
+
+/* spec-design.md §5.4 — prices align on the comma */
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Scene 0 loader — spec-reference-scenes.md; Motion + glow bloom (reference sec_005–008). */
+.loader-fantasma {
+  filter: blur(0.5px);
+}
+
+/* filter: drop-shadow, not text-shadow — LetrasReveladas wraps each character in its
+   own overflow-hidden box for the slide-in reveal, which clips a text-shadow before it
+   can bleed past that tiny box. drop-shadow composites after the child's own clipping,
+   so it isn't affected (same reasoning as .loader-bloom-lockup below). */
+.loader-bloom {
+  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--washi) 40%, transparent))
+    drop-shadow(0 0 28px color-mix(in srgb, var(--washi) 20%, transparent))
+    drop-shadow(0 0 56px color-mix(in srgb, var(--hinomaru-claro) 10%, transparent));
+  animation: loader-bloom 3.4s var(--ease-respiracao, ease-in-out) infinite;
+}
+
+.loader-bloom-lockup {
+  filter: drop-shadow(0 0 12px color-mix(in srgb, var(--hinomaru-claro) 45%, transparent))
+    drop-shadow(0 0 32px color-mix(in srgb, var(--hinomaru) 25%, transparent));
+  animation: loader-bloom-lockup 3.4s var(--ease-respiracao, ease-in-out) infinite;
+}
+
+@keyframes loader-bloom {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 8px color-mix(in srgb, var(--washi) 32%, transparent))
+      drop-shadow(0 0 22px color-mix(in srgb, var(--washi) 16%, transparent));
+  }
+  50% {
+    filter: drop-shadow(0 0 16px color-mix(in srgb, var(--washi) 58%, transparent))
+      drop-shadow(0 0 42px color-mix(in srgb, var(--washi) 30%, transparent))
+      drop-shadow(0 0 80px color-mix(in srgb, var(--hinomaru-claro) 18%, transparent));
+  }
+}
+
+@keyframes loader-bloom-lockup {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 10px color-mix(in srgb, var(--hinomaru-claro) 35%, transparent))
+      drop-shadow(0 0 24px color-mix(in srgb, var(--hinomaru) 18%, transparent));
+  }
+  50% {
+    filter: drop-shadow(0 0 18px color-mix(in srgb, var(--hinomaru-claro) 55%, transparent))
+      drop-shadow(0 0 48px color-mix(in srgb, var(--hinomaru) 32%, transparent));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loader {
+    display: none !important;
+  }
+
+  .loader-bloom,
+  .loader-bloom-lockup {
+    animation: none;
+  }
+}
+
+/*
+  Scene 1 legibility — reference sec_011 places type over the darkest photo region;
+  our Tier-A phone photos (neon, sky) need an ink scrim + sumi halo. Not box-shadow
+  (spec-design.md §13); text-shadow only. §4.4: --hinomaru is large display on dark ground.
+*/
+.hero-scrim {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--sumi) 92%, transparent) 0%,
+      color-mix(in srgb, var(--sumi) 48%, transparent) 16%,
+      transparent 34%
+    ),
+    radial-gradient(
+      ellipse 88% 52% at 50% 44%,
+      color-mix(in srgb, var(--sumi) 82%, transparent) 0%,
+      color-mix(in srgb, var(--sumi) 58%, transparent) 46%,
+      transparent 74%
+    ),
+    linear-gradient(
+      0deg,
+      var(--sumi) 0%,
+      color-mix(in srgb, var(--sumi) 94%, transparent) 14%,
+      color-mix(in srgb, var(--sumi) 62%, transparent) 40%,
+      transparent 62%
+    );
+}
+
+.hero-foto-dim {
+  background: color-mix(in srgb, var(--sumi) 28%, transparent);
+}
+
+.hero-tipo-washi {
+  text-shadow:
+    0 0 1px color-mix(in srgb, var(--sumi) 88%, transparent),
+    0 2px 18px color-mix(in srgb, var(--sumi) 82%, transparent),
+    0 0 44px color-mix(in srgb, var(--sumi) 62%, transparent);
+}
+
+.hero-tipo-hinomaru {
+  text-shadow:
+    0 0 1px color-mix(in srgb, var(--sumi) 95%, transparent),
+    0 2px 14px color-mix(in srgb, var(--sumi) 92%, transparent),
+    0 0 36px color-mix(in srgb, var(--sumi) 78%, transparent);
+}
+
+.hero-tipo-jp {
+  text-shadow: 0 1px 12px color-mix(in srgb, var(--sumi) 75%, transparent);
+}
+
+.nav-scrim {
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--sumi) 94%, transparent) 0%,
+    color-mix(in srgb, var(--sumi) 55%, transparent) 50%,
+    transparent 100%
+  );
+}
+
+.nav-tipo {
+  text-shadow:
+    0 0 1px color-mix(in srgb, var(--sumi) 90%, transparent),
+    0 1px 10px color-mix(in srgb, var(--sumi) 80%, transparent);
+}
+
+.nav-tipo-jp {
+  text-shadow: 0 1px 8px color-mix(in srgb, var(--sumi) 70%, transparent);
+}
+
+/* the condition band — spec-design.md §8.1 */
+@keyframes marquise {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* M1 (pinned/shrinking hero inset) retired 2026-08-18 — TASK-hero-scene.md. The
+   clip-path numbers here were sourced from a mislabelled capture, not a real scroll
+   trace; see docs/spec-scene-hero.md. Do not re-add without a dedicated fresh capture. */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/*
+  ---break---
+*/
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
