@@ -6,6 +6,7 @@ import { CabecalhoMarca } from "./cabecalho-marca";
 import { MarcaItem } from "./marca-item";
 import { cn } from "@/lib/utils";
 import { usePortaLoader } from "@/lib/motion/porta-loader";
+import { OISHI_ATRASO } from "@/lib/motion/hero-entrada";
 
 const NAV = [
   { href: "/cardapio", kanji: "品書", gloss: "menu", palavra: "Cardápio" },
@@ -36,7 +37,11 @@ export function Cabecalho() {
         )}
         initial={{ opacity: 0, y: -12 }}
         animate={liberado || !overlay ? { opacity: 1, y: 0 } : { opacity: 0, y: -12 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        transition={{
+          duration: 0.5,
+          delay: overlay ? OISHI_ATRASO + 0.5: OISHI_ATRASO,
+          ease: [0.22, 1, 0.36, 1],
+        }}
       >
         <div
           className={cn(
@@ -57,7 +62,7 @@ export function Cabecalho() {
                 animate={liberado || !overlay ? { opacity: 1, y: 0 } : { opacity: 0, y: -8 }}
                 transition={{
                   duration: 0.45,
-                  delay: overlay ? 0.04 + i * 0.04 : i * 0.03,
+                  delay: overlay ? OISHI_ATRASO + 0.5 + i * 0.1 : i * 0.03,
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
