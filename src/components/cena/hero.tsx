@@ -1,11 +1,12 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Noise from "@/components/bits/noise";
 import { HeroiMidiaDissolve } from "@/components/cena/heroi-midia-dissolve";
 import { HeroTitulo } from "@/components/cena/hero-titulo";
 import { BordaRasgada } from "@/components/cena/borda-rasgada";
 import { Selo } from "@/components/marca/selo";
+import { usarScrub } from "@/lib/motion/usar-scrub";
 
 const FOTOS = [
   { image: "/fotos/hero-neon.webp", focalX: 68, focalY: 40 },
@@ -19,19 +20,40 @@ export function Hero() {
   const [reduzido] = useState(() =>
     typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches,
   );
+  const secaoRef = useRef<HTMLElement>(null);
+  const fundoRef = useRef<HTMLDivElement>(null);
+  const seloFantasmaRef = useRef<HTMLDivElement>(null);
+
+  // Background parallax across the hero's own scroll-out range — spec-design.md §7.4 M2
+  // "differential depth", continuing into Introducao's already-scrubbed chips/words so
+  // the handoff at BordaRasgada reads as continuous depth, not a hard cut.
+  usarScrub(
+    secaoRef,
+    ({ gsap }) => {
+      const cfg = { trigger: secaoRef.current, start: "top top", end: "bottom top", scrub: true };
+      gsap.fromTo(fundoRef.current, { y: -20 }, { y: 60, ease: "none", scrollTrigger: cfg });
+      gsap.fromTo(seloFantasmaRef.current, { y: -40 }, { y: 130, ease: "none", scrollTrigger: cfg });
+    },
+    [],
+  );
 
   return (
-    <section className="relative flex h-dvh flex-col overflow-hidden px-4 pt-24 pb-8 sm:px-6">
+    <section ref={secaoRef} className="relative flex h-dvh flex-col overflow-hidden px-4 pt-24 pb-8 sm:px-6">
       {/* z0 — colour fallback when photos fail */}
       <div
-        className="pointer-events-none absolute inset-0"
+        ref={fundoRef}
+        className="pointer-events-none absolute inset-0 will-change-transform"
         style={{
           background:
             "linear-gradient(180deg, var(--hinomaru-escuro) 0%, var(--sumi) 55%), radial-gradient(ellipse 80% 60% at 70% 80%, color-mix(in srgb, var(--hinomaru) 35%, transparent), transparent)",
         }}
         aria-hidden
       />
-      <div className="pointer-events-none absolute right-[-8vw] bottom-[-10vh] opacity-[0.06]" aria-hidden>
+      <div
+        ref={seloFantasmaRef}
+        className="pointer-events-none absolute right-[-8vw] bottom-[-10vh] opacity-[0.06] will-change-transform"
+        aria-hidden
+      >
         <Selo escala="fantasma" cor="var(--washi)" />
       </div>
 
