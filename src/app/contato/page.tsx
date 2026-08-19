@@ -50,7 +50,7 @@ export default async function ContatoPage() {
         <Ctas className="mt-8" />
       </section>
 
-      <BandaContato />
+      <BandaContato restaurante={restaurante} />
     </>
   );
 }

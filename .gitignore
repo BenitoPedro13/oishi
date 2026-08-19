@@ -35,4 +35,4 @@ yarn-error.log*
 next-env.d.ts
 
 # large video references — evidence, not shipped
-references/**/*.mov
+references/

@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { usePathname } from "next/navigation";
 import { CabecalhoMarca } from "./cabecalho-marca";
 import { MarcaItem } from "./marca-item";
+import { MenuMobile } from "./menu-mobile";
 import { cn } from "@/lib/utils";
 import { usePortaLoader } from "@/lib/motion/porta-loader";
 import { OISHI_ATRASO } from "@/lib/motion/hero-entrada";
@@ -45,14 +46,18 @@ export function Cabecalho() {
       >
         <div
           className={cn(
-            "mx-auto flex w-full max-w-[1800px] items-center  justify-between px-5 py-4 sm:px-8 sm:py-5 lg:px-12ustify-between",
+            "mx-auto flex w-full max-w-[1800px] flex-wrap items-center justify-between gap-x-6 gap-y-2 px-5 py-4 sm:px-8 sm:py-5 lg:px-12",
             overlay ? "px-5 py-4 sm:px-8 sm:py-5 lg:px-12" : "px-4 py-3 sm:px-6",
           )}
         >
-          <CabecalhoMarca overlay={overlay} />
+          <CabecalhoMarca logo />
 
+          {/* The large lockup size needs real room — only single-row below `xl`
+              (1280px) reliably overflows, so the full nav waits for `xl:` and the
+              drawer (`MenuMobile`) covers everything narrower than that, not just
+              phones. `flex-wrap` here is a safety net, never the primary layout. */}
           <nav
-            className="flex shrink-0 items-end gap-8 sm:gap-10 lg:gap-14 xl:gap-[4.5rem]"
+            className="hidden shrink-0 flex-wrap items-end justify-end gap-x-8 gap-y-2 xl:flex xl:gap-x-12"
             aria-label="Navegação principal"
           >
             {NAV.map((item, i) => (
@@ -66,10 +71,12 @@ export function Cabecalho() {
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                <MarcaItem {...item} overlay={overlay} />
+                <MarcaItem {...item} />
               </motion.div>
             ))}
           </nav>
+
+          <MenuMobile itens={NAV} />
         </div>
       </motion.header>
     </>

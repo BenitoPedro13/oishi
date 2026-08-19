@@ -31,7 +31,7 @@ export function Introducao() {
   );
 
   return (
-    <section ref={secaoRef} className="relative overflow-hidden bg-sumi px-4 py-24 sm:px-6">
+    <section ref={secaoRef} className="relative overflow-hidden bg-[#1A100D] px-4 py-24 sm:px-6">
       <div
         ref={colunaRef}
         className="pointer-events-none absolute top-1/3 left-4 hidden will-change-transform md:block"

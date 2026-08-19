@@ -7,6 +7,7 @@ import { LetrasReveladas, intervaloPara } from "@/components/magic/letras-revela
 import { Tinta } from "@/components/cena/tinta";
 import { usePortaLoader } from "@/lib/motion/porta-loader";
 import { cn } from "@/lib/utils";
+import { CabecalhoMarca } from "../marca/cabecalho-marca";
 
 /** Tagline wipe-reveal duration — measured ~830ms, spec-loader-sequence.md. */
 const REVELAR_MS = 830;
@@ -148,9 +149,8 @@ export function Loader() {
             : { delay: 0.1, duration: 0.6, ease: [0.22, 1, 0.36, 1] }
         }
       >
-        <LockupLogo compact />
+        <CabecalhoMarca className="scale-[2.77]" />
       </motion.div>
-
       <Tinta ativo={saindo} variante="revelar" duracao={SAIDA_S} onComplete={finalizarSaida} />
     </div>
   );

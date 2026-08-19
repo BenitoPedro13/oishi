@@ -19,7 +19,7 @@ export default async function Home() {
       {/* <CapituloDesperdicio /> */}
       <RodiziosTeaser />
       <MarqueeFotos />
-      <BandaContato />
+      <BandaContato restaurante={restaurante} />
       <RodapeSimples restaurante={restaurante} />
     </>
   );

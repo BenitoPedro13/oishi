@@ -36,10 +36,10 @@ export function HeroTitulo() {
       />
 
       <h1
-        className="relative z-10 flex flex-nowrap items-baseline justify-center gap-0 leading-none"
+        className="relative z-10 flex flex-wrap items-baseline justify-center gap-x-2 gap-y-1 leading-none"
         style={SPLASH}
       >
-        <span className="relative inline-block align-baseline">
+        <span className="relative inline-block align-baseline whitespace-nowrap">
           <LetrasReveladas
             texto={OISHI_TEXTO}
             ativar={liberado}
@@ -69,7 +69,7 @@ export function HeroTitulo() {
           ativar={liberado}
           atraso={OISHI_ATRASO + 0.06}
           intervalo={intervaloPara("COZINHA", HERO_REVELA_MS)}
-          className="inline-block align-baseline text-washi"
+          className="inline-block align-baseline whitespace-nowrap text-washi"
           style={{ fontVariationSettings: "'wdth' 70" }}
         />
 
