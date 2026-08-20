@@ -28,19 +28,24 @@ Two defects visible in the user's screenshot at ~390px width:
 
 ## 2. Planned changes
 
-- **`hero-titulo.tsx` — superseded twice, see below.** First pass added `flex-wrap` +
-  `whitespace-nowrap` so the two inline blocks (`OISHI`+味, `COZINHA`) could drop to their
-  own line instead of splitting mid-word. The user's true-375px screenshot (DevTools
-  iPhone SE) showed this still didn't reliably wrap — width-dependent wrapping of two
-  items with a shared inherited font-size is fragile in a way that's hard to fully reason
-  about from measurements alone. **Final fix**: stopped relying on wrapping at all. The
-  user pointed at the reference's own hero (`NEW` / `SUSHISM`, always two stacked lines,
-  never one flowing row regardless of viewport) and asked for the same treatment. `<h1>`
-  is now `flex flex-col` — `OISHI`+味 is unconditionally line 1, `COZINHA`+the small disc
-  (grouped into their own row span) is unconditionally line 2. This isn't a mobile-only
-  fix; it's the layout at every width, matching the reference exactly and removing the
-  entire class of combined-width overflow bugs by construction — each line now only ever
-  needs to fit one word, not two.
+- **`hero-titulo.tsx` — went through three shapes, see below.**
+  1. `flex-wrap` + `whitespace-nowrap` so `OISHI`+味 and `COZINHA` could drop to their own
+     line instead of splitting mid-word. The user's true-375px screenshot (DevTools
+     iPhone SE) showed this still didn't reliably wrap.
+  2. Unconditional `flex-col` — always two stacked lines at every width, matching the
+     reference's own always-stacked `NEW`/`SUSHISM`. The user pushed back: they want a
+     single row above a fixed 500px breakpoint (not always-stacked), centered in both
+     states, and the small "おいしいキッチン" kanji caption above the title — previously a
+     fixed, non-responsive `36px`/`0.9rem` — scaled down at narrow widths too.
+  3. **Final**: `<h1>` is `flex flex-col items-center justify-center ... min-[500px]:flex-row
+     min-[500px]:items-baseline` — a deterministic breakpoint switch (Tailwind's arbitrary
+     `min-[500px]:` variant), not content-based wrapping, so there's no fragility left to
+     debug. Below 500px: `OISHI`+味 and `COZINHA`+seal stack as two centered lines
+     (matches the user's own reference screenshot exactly, confirmed live at a true
+     375×667 viewport). At 500px+: single centered row, confirmed live at 912px and
+     ~1500-1700px. The kanji caption's `fontSize`/`letterSpacing` moved from fixed values
+     to `clamp(20px, 6vw, 36px)` / `clamp(0.35rem, 2.2vw, 0.9rem)`, so it scales smoothly
+     with viewport width instead of staying pinned at its desktop size on phones.
 - **Revised — the nav needed more than a wrap fallback.** First pass just let
   `cabecalho.tsx`'s nav wrap in place. The user then asked for a real mobile menu
   (reference screenshot: full-screen dark drawer, small logo top-left, close top-right,
