@@ -7,8 +7,6 @@ WhatsApp contact one tap each.
 
 **Live:** [oishi-eight.vercel.app](https://oishi-eight.vercel.app)
 
-Powered by [Blessed Moon Studio](https://blessed-moon.vercel.app)
-
 ## Stack
 
 | Layer | Choice |

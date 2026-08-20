@@ -14,6 +14,17 @@ export function RodapeSimples({ restaurante }: { restaurante: Restaurante }) {
           <p>{endereco}</p>
           <p>{formatarTelefone(restaurante.telefoneWhatsapp)}</p>
           <p>{restaurante.horario.faixaHorario} · dias em confirmação</p>
+          <p>
+            Powered by{" "}
+            <a
+              href="https://blessed-moon.vercel.app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-washi"
+            >
+              Blessed Moon Studio
+            </a>
+          </p>
         </div>
         <nav className="flex flex-wrap gap-4">
           <Link href="/cardapio" className="hover:text-washi">
